@@ -3,12 +3,12 @@ package gui;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 /**
  * Static factory for generating items for the GUI
@@ -54,6 +54,4 @@ public class ComponentFactory extends GridPane {
         imageView.setFitWidth(fitWidth);
         return imageView;
     }
-
-
 }

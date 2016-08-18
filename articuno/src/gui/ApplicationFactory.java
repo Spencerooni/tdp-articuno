@@ -8,7 +8,7 @@ public enum ApplicationFactory {
 
     private Scene mainMenuScene, addEmployeeScene, viewRecordsScene;
     private Stage primaryStage;
-    private static final int WIDTH = 800;
+    private static final int WIDTH = 900;
     private static final int HEIGHT = 600;
 
     /**

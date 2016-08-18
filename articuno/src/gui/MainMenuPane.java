@@ -20,7 +20,7 @@ public class MainMenuPane extends GridPane {
         this.setAlignment(Pos.CENTER);
 
         //Main Image
-        ImageView mainImage = ComponentFactory.getImageView("./assets/articuno_main.png", 800);
+        ImageView mainImage = ComponentFactory.getImageView("./articuno/assets/articuno_main.png", 400);
         GridPane.setConstraints(mainImage, 0, 0);
         this.getChildren().add(mainImage);
 
@@ -48,17 +48,17 @@ public class MainMenuPane extends GridPane {
     }
 
     /**
-     * Go to a new Screen
+     * Go to the Add Employees Scene
      */
     private void doNewEmployee() {
-
+        ApplicationFactory.INSTANCE.showAddEmployeeScene();
     }
 
     /**
-     * Go to a new Screen
+     * Go to the View Reports Scene
      */
     private void doViewReports() {
-
+        ApplicationFactory.INSTANCE.showViewRecordsScene();
     }
 
     /**
