@@ -1,5 +1,6 @@
 package main;
 import employee.Employee;
+import employee.EmployeeDB;
 
 public class testClass {
 
@@ -7,6 +8,8 @@ public class testClass {
 		Employee tester= new Employee();
 		tester.setF_name("Bob");
 		System.out.println(tester.getF_name());
+	
+		System.out.println(EmployeeDB.setEmployees());
 	}
 
 }
