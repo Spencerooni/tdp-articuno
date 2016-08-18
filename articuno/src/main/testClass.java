@@ -18,6 +18,7 @@ public class testClass {
 		Salary salary;
 	//	Date current_date = new Date();
 		ArrayList<Department> departments = new ArrayList<Department>();
+		Boolean error=true;
 		Department dept_gov= new Department("GOV", "Government Solutions");
 		Department dept_evo= new Department("EVOL", "Evolve health-care");
 		Department dept_ent= new Department("ENT", "Enterprise");
@@ -29,15 +30,30 @@ public class testClass {
 //		System.out.println(date_format.format(current_date));
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Please enter employee number");
-		
 		int emp_no = scanner.nextInt();
 		tester.setEmp_no(emp_no);
 		String input= scanner.nextLine();
 		System.out.println("Please enter first name");
-		input= scanner.nextLine();
+		while(error==true){
+			input= scanner.nextLine();
+			if(!input.matches(".*\\d+.*")){
+				error=false;
+			}
+			else{
+				System.out.println("Please enter a first name without any numbers");
+			}
+		}
 		tester.setF_name(input);
 		System.out.println("Please enter last name");
-		input= scanner.nextLine();
+		while(error==true){
+			input= scanner.nextLine();
+			if(!input.matches((".*\\d+.*"))){
+				error=false;
+			}
+			else{
+				System.out.println("Please enter a last name without any numbers");
+			}
+		}
 		tester.setL_name(input);
 		System.out.println("Please enter address");
 		input= scanner.nextLine();
