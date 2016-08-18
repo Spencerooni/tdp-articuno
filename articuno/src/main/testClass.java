@@ -73,7 +73,7 @@ public class testClass {
 		tester.setF_name("Bob");
 		System.out.println(tester.getF_name());
 	
-		System.out.println(EmployeeDB.setEmployees());
+		System.out.println(EmployeeDB.setEmployees(tester));
 
 	}
 
