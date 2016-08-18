@@ -24,4 +24,7 @@ public class Salary {
 	public void setDate(String date){
 		setDate(date);
 	}
+	public int getSalary(){
+		return salary;
+	}
 }
