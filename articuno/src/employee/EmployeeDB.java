@@ -14,8 +14,8 @@ public class EmployeeDB {
 		ArrayList<Employee>emps = new ArrayList<Employee>();
 		String db = "jdbc:mysql://localhost/articunoEmployees";
 		//temporary test files
-		String sql_dept = "INSERT INTO department VALUES ('TES5', 'TNAME1')";
-		String sql_emp = "INSERT INTO employee VALUES (" + "3, 'TEST', 'M', 'H', 'address', 'YT837483H', null, null)";
+		String sql_dept = "INSERT INTO department VALUES ('TEST', 'TNAME1')";
+		String sql_emp = "INSERT INTO employee VALUES (" + "1, 'TEST', 'M', 'H', 'address', 'YT837483H', null, null)";
 		String sql_sal = "INSERT INTO salary VALUES (" + "1, '2012-12-12', 1, null)";
 		try {
 			Class driver = Class.forName("com.mysql.jdbc.Driver");

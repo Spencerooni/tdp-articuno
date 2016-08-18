@@ -16,7 +16,7 @@ public class testClass {
 		Employee tester= new Employee();
 
 		Salary salary;
-		Date current_date = new Date();
+	//	Date current_date = new Date();
 		ArrayList<Department> departments = new ArrayList<Department>();
 		Department dept_gov= new Department("GOV", "Government Solutions");
 		Department dept_evo= new Department("EVOL", "Evolve health-care");
@@ -25,10 +25,11 @@ public class testClass {
 		departments.add(dept_gov);
 		departments.add(dept_evo);
 
-		SimpleDateFormat date_format= new SimpleDateFormat("yyyy/MM/dd");
-		System.out.println(date_format.format(current_date));
+//		SimpleDateFormat date_format= new SimpleDateFormat("yyyy/MM/dd");
+//		System.out.println(date_format.format(current_date));
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Please enter employee number");
+		
 		int emp_no = scanner.nextInt();
 		tester.setEmp_no(emp_no);
 		String input= scanner.nextLine();
@@ -51,8 +52,15 @@ public class testClass {
 		input= scanner.nextLine();
 		tester.setBIC(input);
 		System.out.println("Please enter your starter salary");
-		int starter_salary= scanner.nextInt();		
-		salary= new Salary(tester.getEmp_no(), starter_salary, current_date);
+		int starter_salary= scanner.nextInt();
+		System.out.println("Please enter the today's day date: DD");
+		String day= scanner.nextLine();
+		System.out.println("Please enter the today's month date: MM");
+		String month= scanner.nextLine();
+		System.out.println("Please enter the today's year date: YYYY");
+		String year= scanner.nextLine();
+		String current_date= String.format("%s-%s-%s", year,month,day);
+		salary= new Salary(starter_salary, current_date);
 		tester.setSalary(salary);
 		scanner.nextLine();
 		System.out.println("Please enter your department");
@@ -68,12 +76,9 @@ public class testClass {
 		System.out.println(tester.getMy_dept().getTitle());
 		System.out.println(tester.getMy_salary().getSalary());
 		scanner.close();
-
-
-		tester.setF_name("Bob");
-		System.out.println(tester.getF_name());
 	
 		System.out.println(EmployeeDB.setEmployees());
+		
 
 	}
 
