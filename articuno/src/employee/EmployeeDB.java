@@ -26,16 +26,17 @@ public class EmployeeDB {
 		String bic = wrapInSingleQuotes(emp.getBIC());
 		
 		String db = "jdbc:mysql://localhost/articunoEmployees";
-		//temporary test files
-		String sql_dept = "INSERT INTO department VALUES (" + dept_no + ", "+ title+")";
+
+		//String sql_dept = "INSERT INTO department VALUES (" + dept_no + ", "+ title+")";
 		String sql_emp = "INSERT INTO employee VALUES (" +emp_no +", "+dept_no +","+f_name+","+l_name+","+address+","+ni_no+","+iban+","+bic+")";
 		String sql_sal = "INSERT INTO salary VALUES (" +emp_no+","+ start_date+"," +salary+","+end_date+")";
+
 		try {
 			Class driver = Class.forName("com.mysql.jdbc.Driver");
 			Connection c = DriverManager.getConnection(db, "root", "password");
 			
-			PreparedStatement st1 = c.prepareStatement(sql_dept);
-			st1.executeUpdate();
+			//PreparedStatement st1 = c.prepareStatement(sql_dept);
+			//st1.executeUpdate();
 			
 			PreparedStatement st2 = c.prepareStatement(sql_emp);
 			st2.executeUpdate();

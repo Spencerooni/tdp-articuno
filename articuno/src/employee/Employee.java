@@ -9,9 +9,10 @@ public class Employee {
 	private Salary my_salary;
 	
 	
-	public void create_salary(int emp_num, int salary, Date start_date){
-		my_salary= new  Salary( emp_num, salary, start_date);		
+	public void create_salary( int salary, String start_date){
+		my_salary= new  Salary(salary, start_date);		
 	}
+	
 	public void setSalary(Salary my_salary){
 		this.my_salary=my_salary;
 	}
