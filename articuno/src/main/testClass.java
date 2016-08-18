@@ -44,6 +44,7 @@ public class testClass {
 			}
 		}
 		tester.setF_name(input);
+		error=true;
 		System.out.println("Please enter last name");
 		while(error==true){
 			input= scanner.nextLine();
@@ -54,6 +55,7 @@ public class testClass {
 				System.out.println("Please enter a last name without any numbers");
 			}
 		}
+		error=true;
 		tester.setL_name(input);
 		System.out.println("Please enter address");
 		input= scanner.nextLine();
@@ -69,6 +71,7 @@ public class testClass {
 		tester.setBIC(input);
 		System.out.println("Please enter your starter salary");
 		int starter_salary= scanner.nextInt();
+		scanner.nextLine();
 		System.out.println("Please enter the today's day date: DD");
 		String day= scanner.nextLine();
 		System.out.println("Please enter the today's month date: MM");
@@ -78,7 +81,6 @@ public class testClass {
 		String current_date= String.format("%s-%s-%s", year,month,day);
 		salary= new Salary(starter_salary, current_date);
 		tester.setSalary(salary);
-		scanner.nextLine();
 		System.out.println("Please enter your department");
 		input= scanner.nextLine();
 
@@ -93,8 +95,8 @@ public class testClass {
 		System.out.println(tester.getMy_salary().getSalary());
 		scanner.close();
 	
-		System.out.println(EmployeeDB.setEmployees());
-		
+
+		System.out.println(EmployeeDB.setEmployees(tester));
 
 	}
 
