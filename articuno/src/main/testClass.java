@@ -1,5 +1,6 @@
 package main;
 import employee.Employee;
+
 import employee.Salary;
 import employee.Department;
 import java.io.InputStream;
@@ -7,12 +8,13 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Date;
 import java.text.SimpleDateFormat;
-
+import employee.EmployeeDB;
 
 public class testClass {
 
 	public static void main(String[] args) {
 		Employee tester= new Employee();
+
 		Salary salary;
 		Date current_date = new Date();
 		ArrayList<Department> departments = new ArrayList<Department>();
@@ -66,6 +68,12 @@ public class testClass {
 		System.out.println(tester.getMy_dept().getTitle());
 		System.out.println(tester.getMy_salary().getSalary());
 		scanner.close();
+
+
+		tester.setF_name("Bob");
+		System.out.println(tester.getF_name());
+	
+		System.out.println(EmployeeDB.setEmployees());
 
 	}
 
