@@ -55,13 +55,15 @@ public class EmployeeDB {
 		
 		try{
 			//Sql not yet taking salary in
-			String sql = "SELECT emp_no, dept_no, f_name, l_name, address, ni_no, iban, bic, dept_name FROM employee JOIN department USING(emp_no)";
+			String sql =
+					"SELECT emp_id, dept_no, f_name, l_name, address, ni_no, iban, bic, dept_name FROM employee" +
+			" JOIN department USING(dept_no)";
 			PreparedStatement st = c.prepareStatement(sql);
 			ResultSet rs = st.executeQuery();
 			Employee emp;
 			while(rs.next()){
 				emp = new Employee();
-				emp.setEmp_no(rs.getInt("emp_no"));
+				emp.setEmp_no(rs.getInt("emp_id"));
 				emp.set_dept(new Department(rs.getString("dept_no"), rs.getString("dept_name")));
 				emp.setF_name(rs.getString("f_name"));
 				emp.setL_name(rs.getString("l_name"));
@@ -73,7 +75,8 @@ public class EmployeeDB {
 			}
 			return emps;
 		}catch (Exception e){
-			System.out.println("SQL query error");
+			System.out.println("SQL query error get");
+			e.printStackTrace();
 			return emps;
 		}
 	}
