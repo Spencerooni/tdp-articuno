@@ -1,7 +1,7 @@
 package gui;
 
-import com.sun.javafx.scene.layout.region.LayeredBackgroundPositionConverter;
 import employee.Employee;
+import employee.Salary;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -12,8 +12,9 @@ import javafx.scene.text.Font;
 public class AddEmployeePane extends GridPane {
 
     private static final String INTRO_TEXT = "Enter Employee Details";
-    private TextField firstName, lastName, niNumber, startSalary, iban, bic, empNum, addressLineOne, addressLineTwo,
-            addressCity, addressCountry, addressPostcode;
+    private TextField firstName, lastName, startDate, niNumber, startSalary, iban, bic, empNum;
+    private TextArea address;
+    private String startingDate;
 
     public AddEmployeePane() {
         drawComponents();
@@ -75,20 +76,17 @@ public class AddEmployeePane extends GridPane {
         lastName = ComponentFactory.getTextField(1, 2);
 
         //ADDRESS
-        Label addressOneLabel = ComponentFactory.getLabel("Address: ", 0, 3);
-        addressLineOne = ComponentFactory.getTextField(1,3);
-        Label addressTwoLabel = ComponentFactory.getLabel(" ", 0, 4);
-        addressLineTwo = ComponentFactory.getTextField(1,4);
-        Label addressCityLabel = ComponentFactory.getLabel("City: ", 0, 5);
-        addressCity = ComponentFactory.getTextField(1,5);
-        Label addressCountryLabel = ComponentFactory.getLabel("Country", 0, 6);
-        addressCountry = ComponentFactory.getTextField(1, 6);
-        Label addressPostcodeLabel = ComponentFactory.getLabel("Postcode: ", 0, 7);
-        addressPostcode = ComponentFactory.getTextField(1, 7);
+        Label addressLabel = ComponentFactory.getLabel("Address: ", 0, 3);
+        address = new TextArea();
+        address.setWrapText(true);
+        address.setEditable(true);
+        address.setFont(Font.font("Verdana", 20));
+        address.setMaxWidth(250);
+        GridPane.setConstraints(address, 1, 3);
+        GridPane.setRowSpan(address, 4);
+        GridPane.setMargin(address, new Insets(10, 0, 10, 0));
 
-        leftPane.getChildren().addAll(firstNameLabel,firstName,lastNameLabel,lastName,addressOneLabel,
-                addressLineOne, addressTwoLabel, addressLineTwo, addressCityLabel, addressCity, addressCountryLabel,
-                addressCountry, addressPostcodeLabel, addressPostcode);
+        leftPane.getChildren().addAll(firstNameLabel,firstName,lastNameLabel,lastName, addressLabel, address);
 
         leftPane.setAlignment(Pos.CENTER_LEFT);
         return leftPane;
@@ -100,33 +98,38 @@ public class AddEmployeePane extends GridPane {
     private GridPane getRightPane() {
         GridPane rightPane = new GridPane();
 
+        //START DATE
+        Label startDateLabel = ComponentFactory.getLabel("Start Date: ", 0, 1);
+        startDate = ComponentFactory.getTextField(1, 1);
+        startDate.setText("YYYY-MM-DD");
+
         //EMPLOYEE NUMBER LABEl
-        Label empNumLabel = ComponentFactory.getLabel("Employee Number: ", 0, 1);
-        empNum = ComponentFactory.getTextField(1,1);
+        Label empNumLabel = ComponentFactory.getLabel("Employee Number: ", 0, 2);
+        empNum = ComponentFactory.getTextField(1, 2);
 
         //START SALARY
-        Label startSalaryLabel = ComponentFactory.getLabel("Enter Salary: ", 0, 2);
-        startSalary = ComponentFactory.getTextField(1,2);
+        Label startSalaryLabel = ComponentFactory.getLabel("Enter Salary: ", 0, 3);
+        startSalary = ComponentFactory.getTextField(1, 3);
 
         //NI NUMBER
-        Label niNumLabel = ComponentFactory.getLabel("Enter NI Number: ", 0, 3);
-        niNumber = ComponentFactory.getTextField(1, 3);
+        Label niNumLabel = ComponentFactory.getLabel("Enter NI Number: ", 0, 4);
+        niNumber = ComponentFactory.getTextField(1, 4);
 
         //IBAN LABEL
-        Label ibanLabel = ComponentFactory.getLabel("IBAN: ", 0, 4);
-        iban = ComponentFactory.getTextField(1, 4);
+        Label ibanLabel = ComponentFactory.getLabel("IBAN: ", 0, 5);
+        iban = ComponentFactory.getTextField(1, 5);
 
         //BIC
-        Label bicLabel = ComponentFactory.getLabel("BIC: ", 0, 5);
-        bic = ComponentFactory.getTextField(1, 5);
+        Label bicLabel = ComponentFactory.getLabel("BIC: ", 0, 6);
+        bic = ComponentFactory.getTextField(1, 6);
 
         //DEPARTMENT
-        Label departmentLabel = ComponentFactory.getLabel("Department: ", 0, 6);
-        ComboBox departmentCombo = ComponentFactory.getComboBox(1, 6, "Choose a Department");
+        Label departmentLabel = ComponentFactory.getLabel("Department: ", 0, 7);
+        ComboBox departmentCombo = ComponentFactory.getComboBox(1, 7, "Choose a Department");
         departmentCombo.getItems().addAll("Gov", "Evolve");
 
-        rightPane.getChildren().addAll(empNumLabel, empNum, startSalaryLabel, startSalary, niNumLabel, niNumber,
-                ibanLabel, iban, bicLabel, bic, departmentLabel, departmentCombo);
+        rightPane.getChildren().addAll(startDateLabel, startDate, empNumLabel, empNum, startSalaryLabel, startSalary,
+                niNumLabel, niNumber, ibanLabel, iban, bicLabel, bic, departmentLabel, departmentCombo);
 
         rightPane.setAlignment(Pos.TOP_RIGHT);
         return rightPane;
@@ -185,9 +188,55 @@ public class AddEmployeePane extends GridPane {
         if((firstName.getText() != null && !firstName.getText().isEmpty())) {
             employee.setF_name(firstName.getText());
         } else {
-            firstName.setText("Enter a First Name");
+            firstName.setText("Enter First Name");
         }
 
+        if((lastName.getText() != null && !lastName.getText().isEmpty())) {
+            employee.setL_name(lastName.getText());
+        } else {
+            lastName.setText("Enter Last Name");
+        }
+
+        if((address.getText() != null && !address.getText().isEmpty())) {
+            employee.setAddress(address.getText());
+        } else {
+            address.setText("Enter an Address");
+        }
+
+        if((startDate.getText() != null && !startDate.getText().isEmpty())) {
+            startingDate = startDate.getText();
+            if((startSalary.getText() != null && !startSalary.getText().isEmpty())) {
+                employee.setSalary(new Salary(Integer.parseInt(startSalary.getText()), startingDate));
+            } else {
+                startSalary.setText("Enter Starting Salary");
+            }
+        }else {
+            startDate.setText("Enter YYYY-MM-DD");
+        }
+
+        if((empNum.getText() != null && !empNum.getText().isEmpty())) {
+            employee.setEmp_no(Integer.parseInt(empNum.getText()));
+        } else {
+            empNum.setText("Enter Employee Number");
+        }
+
+        if((niNumber.getText() != null && !niNumber.getText().isEmpty())) {
+            employee.setNi_no(niNumber.getText());
+        } else {
+            niNumber.setText("Enter NI Number");
+        }
+
+        if((iban.getText() != null && !iban.getText().isEmpty())) {
+            employee.setIBAN(iban.getText());
+        } else {
+            iban.setText("Enter IBAN");
+        }
+
+        if((bic.getText() != null && !bic.getText().isEmpty())) {
+            employee.setBIC(bic.getText());
+        } else {
+            bic.setText("Enter BIC");
+        }
 
     }
 }
