@@ -21,7 +21,7 @@ public enum ApplicationFactory {
         this.primaryStage.setTitle("Articuno Applications");
         this.primaryStage.setResizable(false);
         this.primaryStage.setMaxHeight(900);
-        this.primaryStage.setMaxHeight(700);
+        this.primaryStage.setMaxWidth(800);
     }
 
     /**
@@ -31,10 +31,16 @@ public enum ApplicationFactory {
         return this.primaryStage;
     }
 
+    /**
+     * Sets the Scene on the primaryStage to the MainMenuScene
+     */
     public void showMainMenuScene() {
         this.getPrimaryStage().setScene(this.getMainMenuScene());
     }
 
+    /**
+     * @return the Main Menu Scene
+     */
     public Scene getMainMenuScene() {
         if(this.mainMenuScene == null) {
             this.mainMenuScene = new Scene(new MainMenuPane(), WIDTH, HEIGHT);
@@ -42,10 +48,16 @@ public enum ApplicationFactory {
         return this.mainMenuScene;
     }
 
+    /**
+     * Sets the Scene on the primaryStage to the AddEmployeeScene
+     */
     public void showAddEmployeeScene() {
         this.getPrimaryStage().setScene(this.getAddEmployeeScene());
     }
 
+    /**
+     * @return the Add Employee Scene
+     */
     public Scene getAddEmployeeScene() {
         if(this.addEmployeeScene == null) {
             this.addEmployeeScene = new Scene(new AddEmployeePane(), WIDTH, HEIGHT);
@@ -53,10 +65,16 @@ public enum ApplicationFactory {
         return this.addEmployeeScene;
     }
 
+    /**
+     * Sets the Scene on the primaryStage to the ViewRecordsScene
+     */
     public void showViewRecordsScene() {
         this.getPrimaryStage().setScene(this.getViewRecordsScene());
     }
 
+    /**
+     * @return the View Reports Scene
+     */
     public Scene getViewRecordsScene() {
         if (this.viewRecordsScene == null) {
             this.viewRecordsScene = new Scene(new ViewReportsPane(), WIDTH, HEIGHT);
