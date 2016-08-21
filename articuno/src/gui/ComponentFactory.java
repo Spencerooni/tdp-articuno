@@ -8,13 +8,14 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 
 /**
  * Static factory for generating items for the GUI
- *
  */
 public class ComponentFactory extends GridPane {
+
+    private static final Font LABEL_FONT = Font.font("Verdana", 15);
+    private static final Font TEXT_FIELD_FONT = Font.font("Verdana", 20);
 
     /**
      * @param text The button text to set
@@ -53,5 +54,48 @@ public class ComponentFactory extends GridPane {
         imageView.setPreserveRatio(true);
         imageView.setFitWidth(fitWidth);
         return imageView;
+    }
+
+    /**
+     * @param labelText the label text to set
+     * @param x co-ordinate for GridPane
+     * @param y co-ordinate for GridPane
+     * @return a Label
+     */
+    public static Label getLabel(String labelText, int x, int y) {
+        Label label = new Label(labelText);
+        label.setFont(LABEL_FONT);
+        GridPane.setConstraints(label, x, y);GridPane.setMargin(label, new Insets(10, 0, 10, 0));
+        return label;
+    }
+
+    /**
+     * @param x co-ordinate for GridPane
+     * @param y co-ordinate for GridPane
+     * @return a TextField
+     */
+    public static TextField getTextField(int x, int y) {
+        TextField textField = new TextField();
+        textField.setFont(TEXT_FIELD_FONT);
+        textField.setMaxWidth(300);
+        GridPane.setConstraints(textField, x, y);
+        GridPane.setMargin(textField, new Insets(10, 0, 10, 0));
+        return textField;
+    }
+
+    /**
+     * @param x co-ordinate for GridPane
+     * @param y co-ordinate for GridPane
+     * @param prompt ComboBox default text
+     * @return a ComboBox
+     */
+    public static ComboBox getComboBox(int x, int y, String prompt) {
+        ComboBox comboBox = new ComboBox();
+        comboBox.setMaxWidth(300);
+        comboBox.setEditable(false);
+        comboBox.setPromptText(prompt);
+        GridPane.setConstraints(comboBox, x, y);
+        GridPane.setMargin(comboBox, new Insets(10, 0, 10, 0));
+        return comboBox;
     }
 }
