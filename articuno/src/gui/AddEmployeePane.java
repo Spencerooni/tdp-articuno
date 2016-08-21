@@ -15,6 +15,7 @@ public class AddEmployeePane extends GridPane {
     private TextField firstName, lastName, startDate, niNumber, startSalary, iban, bic, empNum;
     private TextArea address;
     private String startingDate;
+    private ComboBox departmentCombo;
 
     public AddEmployeePane() {
         drawComponents();
@@ -125,7 +126,7 @@ public class AddEmployeePane extends GridPane {
 
         //DEPARTMENT
         Label departmentLabel = ComponentFactory.getLabel("Department: ", 0, 7);
-        ComboBox departmentCombo = ComponentFactory.getComboBox(1, 7, "Choose a Department");
+        departmentCombo = ComponentFactory.getComboBox(1, 7, "Choose a Department");
         departmentCombo.getItems().addAll("Gov", "Evolve");
 
         rightPane.getChildren().addAll(startDateLabel, startDate, empNumLabel, empNum, startSalaryLabel, startSalary,
@@ -178,9 +179,8 @@ public class AddEmployeePane extends GridPane {
         ApplicationFactory.INSTANCE.showMainMenuScene();
     }
 
-    /**
-     * Incomplete method.
-     */
+    //TODO Add a way to assign the dept_no to the Department object
+    //TODO Input values of the employee object to the database
     private void submitInfo() {
 
         Employee employee = new Employee();
@@ -217,7 +217,7 @@ public class AddEmployeePane extends GridPane {
         if((empNum.getText() != null && !empNum.getText().isEmpty())) {
             employee.setEmp_no(Integer.parseInt(empNum.getText()));
         } else {
-            empNum.setText("Enter Employee Number");
+            empNum.setText("Enter Employee Num");
         }
 
         if((niNumber.getText() != null && !niNumber.getText().isEmpty())) {
@@ -237,6 +237,10 @@ public class AddEmployeePane extends GridPane {
         } else {
             bic.setText("Enter BIC");
         }
+        
+//        if((departmentCombo.getValue() != null && !departmentCombo.getValue().toString().isEmpty())) {
+//            employee.setMy_dept(departmentCombo.getValue());
+//        }
 
     }
 }
