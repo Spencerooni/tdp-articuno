@@ -13,6 +13,8 @@ import employee.EmployeeDB;
 public class testClass {
 
 	public static void main(String[] args) {
+		System.out.println(EmployeeDB.getEmployeeDB().get(1).getEmp_no());
+		
 		Employee tester= new Employee();
 
 		Salary salary;
@@ -25,14 +27,37 @@ public class testClass {
 		departments.add(dept_ent);
 		departments.add(dept_gov);
 		departments.add(dept_evo);
+		
+		String emp_no_string= " ";
+		String starter_salary_string= " ";
+		String input= " ";
+		int emp_no=0;
+		int starter_salary=0;
+		int day=0;
+		int month=0;
+		int year=0;
+		String day_string=" ";
+		String month_string=" ";
+		String year_string=" ";
 
 //		SimpleDateFormat date_format= new SimpleDateFormat("yyyy/MM/dd");
 //		System.out.println(date_format.format(current_date));
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Please enter employee number");
-		int emp_no = scanner.nextInt();
+//		while(error==true){
+//			emp_no_string = scanner.nextLine();
+//			if(emp_no_string.matches("[0-9]+")){
+//				emp_no=Integer.parseInt(emp_no_string);
+//				error=false;
+//			}
+//			else{
+//				System.out.println("Please enter the employee number without any letters");
+//			}
+//		}
+		emp_no=checkIfInt(emp_no,emp_no_string, scanner, "employee number");
+		
 		tester.setEmp_no(emp_no);
-		String input= scanner.nextLine();
+		error=true;
 		System.out.println("Please enter first name");
 		while(error==true){
 			input= scanner.nextLine();
@@ -70,14 +95,14 @@ public class testClass {
 		input= scanner.nextLine();
 		tester.setBIC(input);
 		System.out.println("Please enter your starter salary");
-		int starter_salary= scanner.nextInt();
-		scanner.nextLine();
+		starter_salary= checkIfInt(starter_salary, starter_salary_string,scanner,
+				"salary");
 		System.out.println("Please enter the today's day date: DD");
-		String day= scanner.nextLine();
+		day= checkIfInt(day, day_string,scanner,"day");
 		System.out.println("Please enter the today's month date: MM");
-		String month= scanner.nextLine();
+		month= checkIfInt(month, month_string, scanner, "month");
 		System.out.println("Please enter the today's year date: YYYY");
-		String year= scanner.nextLine();
+		year= checkIfInt(year, year_string, scanner, "year");
 		String current_date= String.format("%s-%s-%s", year,month,day);
 		salary= new Salary(starter_salary, current_date);
 		tester.setSalary(salary);
@@ -98,6 +123,21 @@ public class testClass {
 
 		System.out.println(EmployeeDB.setEmployees(tester));
 
+	}
+	
+	private static int checkIfInt(int number, String number_string, Scanner scanner, String field_name){
+		boolean check=true;
+		while(check==true){
+			number_string = scanner.nextLine();
+			if(number_string.matches("[0-9]+")){
+				number=Integer.parseInt(number_string);
+				return number;
+			}
+			else{
+				System.out.println(String.format(("Please enter the %s without any letters"), field_name));
+			}
+		}
+		return number;
 	}
 
 }

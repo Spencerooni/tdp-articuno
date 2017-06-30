@@ -18,25 +18,21 @@ public class EmployeeDB {
 		String address = wrapInSingleQuotes(emp.getAddress());
 		String ni_no = wrapInSingleQuotes(emp.getNi_no());
 		String dept_no = wrapInSingleQuotes(emp.getMy_dept().getDept_no());
-		String title = wrapInSingleQuotes(emp.getMy_dept().getTitle());
 		int salary = emp.getMy_salary().getSalary();
 		String start_date = wrapInSingleQuotes(emp.getMy_salary().getStart_date());
 		String end_date = wrapInSingleQuotes(emp.getMy_salary().getEnd_date());
 		String iban = wrapInSingleQuotes(emp.getIBAN());
 		String bic = wrapInSingleQuotes(emp.getBIC());
-		
-		String db = "jdbc:mysql://localhost/articunoEmployees";
 
-		//String sql_dept = "INSERT INTO department VALUES (" + dept_no + ", "+ title+")";
 		String sql_emp = "INSERT INTO employee VALUES (" +emp_no +", "+dept_no +","+f_name+","+l_name+","+address+","+ni_no+","+iban+","+bic+")";
 		String sql_sal = "INSERT INTO salary VALUES (" +emp_no+","+ start_date+"," +salary+","+end_date+")";
 
 		try {
-			Class driver = Class.forName("com.mysql.jdbc.Driver");
-			Connection c = DriverManager.getConnection(db, "root", "password");
+			Connection c = getConnected();
 			
-			//PreparedStatement st1 = c.prepareStatement(sql_dept);
-			//st1.executeUpdate();
+			if (c == null){
+				return false;
+			}
 			
 			PreparedStatement st2 = c.prepareStatement(sql_emp);
 			st2.executeUpdate();
@@ -46,10 +42,43 @@ public class EmployeeDB {
 			
 			
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			System.out.println("Entry of information wrong");
 			return false;
 		}
 		return true;
+	}
+	
+	public static ArrayList<Employee> getEmployeeDB(){
+		ArrayList<Employee> emps = new ArrayList<Employee>();
+		
+		Connection c = getConnected();
+		
+		try{
+			//Sql not yet taking salary in
+			String sql =
+					"SELECT emp_id, dept_no, f_name, l_name, address, ni_no, iban, bic, dept_name FROM employee" +
+			" JOIN department USING(dept_no)";
+			PreparedStatement st = c.prepareStatement(sql);
+			ResultSet rs = st.executeQuery();
+			Employee emp;
+			while(rs.next()){
+				emp = new Employee();
+				emp.setEmp_no(rs.getInt("emp_id"));
+				emp.set_dept(new Department(rs.getString("dept_no"), rs.getString("dept_name")));
+				emp.setF_name(rs.getString("f_name"));
+				emp.setL_name(rs.getString("l_name"));
+				emp.setAddress(rs.getString("address"));
+				emp.setNi_no(rs.getString("ni_no"));
+				emp.setIBAN(rs.getString("iban"));
+				emp.setBIC(rs.getString("bic"));
+				emps.add(emp);
+			}
+			return emps;
+		}catch (Exception e){
+			System.out.println("SQL query error get");
+			e.printStackTrace();
+			return emps;
+		}
 	}
 	
 	private static String wrapInSingleQuotes(String value) {
@@ -57,6 +86,18 @@ public class EmployeeDB {
 			return "'" + value + "'";
 		else 
 			return "null";
+	}
+	
+	private static Connection getConnected(){
+		try{
+			String db = "jdbc:mysql://localhost/articunoEmployees";
+			Class driver = Class.forName("com.mysql.jdbc.Driver");
+			Connection c = DriverManager.getConnection(db, "root", "password");
+			return c;
+		}catch (Exception e){
+			System.out.println("Error connecting to Driver error");
+			return null;
+		}
 	}
 
 }
